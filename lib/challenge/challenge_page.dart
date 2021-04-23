@@ -1,6 +1,7 @@
 import 'package:DevQuiz/challenge/widgets/buttons_challenge/buttons_challenge_widget.dart';
 import 'package:DevQuiz/challenge/widgets/question_indicator/question_indicator_widget.dart';
 import 'package:DevQuiz/challenge/widgets/quiz/quiz_widget.dart';
+import 'package:DevQuiz/core/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ChallengePage extends StatefulWidget {
@@ -13,8 +14,16 @@ class _ChalengePageState extends State<ChallengePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60),
-        child: SafeArea(top: true, child: QuestionIndicatorWidget()),
+        preferredSize: Size.fromHeight(86),
+        child: SafeArea(top: true, child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [            
+            BackButton(
+              color: AppColors.darkGreen,
+            ),
+            QuestionIndicatorWidget(),
+          ],
+        )),
       ),
       body: QuizWidget(
         title: "O que o Flutter faz em sua totalidade?",
@@ -26,11 +35,14 @@ class _ChalengePageState extends State<ChallengePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ButtonsChallengeWidget(label: "Pular"),
+              ButtonsChallengeWidget.white(
+                label: "Pular",
+                onTap: () {},
+              ),
               SizedBox(
                 width: 7,
               ),
-              ButtonsChallengeWidget(label: "Confirmar")
+              ButtonsChallengeWidget.green(label: "Confirmar", onTap: () {},)
             ],
           ),
         ),
