@@ -32,44 +32,47 @@ class ButtonsChallengeWidget extends StatelessWidget {
         
 
   ButtonsChallengeWidget.green({required String label, required VoidCallback onTap})
-      : this.backgroundColor = AppColors.green,
+      : this.backgroundColor = AppColors.darkGreen,
         this.fontColor = AppColors.white,
         this.borderColor = AppColors.green,
         this.label = label,
-        this.overlayColor = AppColors.darkGreen,
+        this.overlayColor = AppColors.levelButtonTextFacil,
         this.onTap = onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: 164,
-        height: 48,
-        child: TextButton(
-            style: ButtonStyle(
-                overlayColor: MaterialStateProperty.resolveWith(
-                  (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.hovered))
-                      return overlayColor;
-                    if (states.contains(MaterialState.focused) ||
-                        states.contains(MaterialState.pressed))
-                      return overlayColor;
-                    return null;
-                  },
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Container(
+          width: 164,
+          height: 48,
+          child: TextButton(
+              style: ButtonStyle(
+                  overlayColor: MaterialStateProperty.resolveWith(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.hovered))
+                        return overlayColor;
+                      if (states.contains(MaterialState.focused) ||
+                          states.contains(MaterialState.pressed))
+                        return overlayColor;
+                      return null;
+                    },
+                  ),
+                  backgroundColor: MaterialStateProperty.all(backgroundColor),
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  )),
+                  side:
+                      MaterialStateProperty.all(BorderSide(color: borderColor))),
+              onPressed: onTap,
+              child: Text(
+                label,
+                style: GoogleFonts.notoSans(
+                  color: fontColor,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
                 ),
-                backgroundColor: MaterialStateProperty.all(backgroundColor),
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                )),
-                side:
-                    MaterialStateProperty.all(BorderSide(color: borderColor))),
-            onPressed: onTap,
-            child: Text(
-              label,
-              style: GoogleFonts.notoSans(
-                color: fontColor,
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-              ),
-            )));
+              ))),
+    );
   }
 }

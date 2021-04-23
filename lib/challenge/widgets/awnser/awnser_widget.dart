@@ -6,12 +6,14 @@ import 'package:flutter/material.dart';
 class AwnserWidget extends StatelessWidget {
   final AwnserModel awnser;
   final bool isSelcted;
+  final bool disabled;
   final VoidCallback onTap;
 
   const AwnserWidget(
       {Key? key,
+      this.disabled = false,      
       required this.awnser,
-      required this.onTap,      
+      required this.onTap,
       this.isSelcted = false})
       : super(key: key);
 
@@ -38,51 +40,56 @@ class AwnserWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: Center(
-        child: GestureDetector(
-          onTap: onTap,
-                  child: Container(
-            height: 72,
-            width: 335,
-            padding: EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: isSelcted ? _selectedColorCardRigth : AppColors.white,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.fromBorderSide(BorderSide(
-                  color:
-                      isSelcted ? _selectedBorderCardRigth : AppColors.border)),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(
-                    awnser.title,
-                    style:
-                        isSelcted ? _selectedTextStyleRigth : AppTextStyles.body,
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: isSelcted ? _selectedColorRigth : AppColors.white,
-                    borderRadius: BorderRadius.circular(50),
-                    border: Border.fromBorderSide(
-                      BorderSide(
-                          color: isSelcted
-                              ? _selectedBorderRigth
-                              : AppColors.border),
+        child: IgnorePointer(
+          ignoring: disabled,
+          child: GestureDetector(
+            onTap: onTap,
+            child: Container(
+              height: 72,
+              width: 335,
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: isSelcted ? _selectedColorCardRigth : AppColors.white,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.fromBorderSide(BorderSide(
+                    color: isSelcted
+                        ? _selectedBorderCardRigth
+                        : AppColors.border)),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      awnser.title,
+                      style: isSelcted
+                          ? _selectedTextStyleRigth
+                          : AppTextStyles.body,
                     ),
                   ),
-                  height: 24,
-                  width: 24,
-                  child: isSelcted
-                      ? Icon(
-                          _selectedIconRight,
-                          color: AppColors.white,
-                          size: 16,
-                        )
-                      : null,
-                ),
-              ],
+                  Container(
+                    decoration: BoxDecoration(
+                      color: isSelcted ? _selectedColorRigth : AppColors.white,
+                      borderRadius: BorderRadius.circular(50),
+                      border: Border.fromBorderSide(
+                        BorderSide(
+                            color: isSelcted
+                                ? _selectedBorderRigth
+                                : AppColors.border),
+                      ),
+                    ),
+                    height: 24,
+                    width: 24,
+                    child: isSelcted
+                        ? Icon(
+                            _selectedIconRight,
+                            color: AppColors.white,
+                            size: 16,
+                          )
+                        : null,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

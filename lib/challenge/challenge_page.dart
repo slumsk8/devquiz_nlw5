@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:DevQuiz/challenge/widgets/buttons_challenge/buttons_challenge_widget.dart';
 import 'package:DevQuiz/challenge/widgets/question_indicator/question_indicator_widget.dart';
 import 'package:DevQuiz/challenge/widgets/quiz/quiz_widget.dart';
-import 'package:DevQuiz/core/app_colors.dart';
 import 'package:DevQuiz/shared/widgets/models/question_model.dart';
 
 class ChallengePage extends StatefulWidget {
@@ -30,6 +29,13 @@ class _ChalengePageState extends State<ChallengePage> {
     super.initState();
   }
 
+  nextPage() {
+    pageController.nextPage(
+      duration: Duration(milliseconds: 100),
+      curve: Curves.easeInToLinear,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +53,7 @@ class _ChalengePageState extends State<ChallengePage> {
                   },
                 ),
                 ValueListenableBuilder<int>(
-                  valueListenable: controller.currentPageNovifier,
+                  valueListenable: controller.currentPageNotifier,
                   builder: (context, value, _) => QuestionIndicatorWidget(
                     currentPage: value,
                     length: widget.questions.length,
@@ -62,32 +68,44 @@ class _ChalengePageState extends State<ChallengePage> {
       body: PageView(
         physics: NeverScrollableScrollPhysics(),
         controller: pageController,
-        children: widget.questions.map((e) => QuizWidget(question: e)).toList(),
+        children: widget.questions
+            .map((e) => QuizWidget(
+                  question: e,
+                  onChange: () {
+                    nextPage();
+                  },
+                ))
+            .toList(),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(20),
-        child: SafeArea(
-          bottom: true,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ButtonsChallengeWidget.white(
-                label: "Pular",
-                onTap: () {
-                  pageController.nextPage(
-                      duration: Duration(milliseconds: 100), curve: Curves.easeInToLinear);
-                },
-              ),
-              SizedBox(
-                width: 7,
-              ),
-              ButtonsChallengeWidget.green(
-                label: "Confirmar",
-                onTap: () {},
-              )
-            ],
-          ),
-        ),
+      bottomNavigationBar: SafeArea(
+        bottom: true,
+        child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: ValueListenableBuilder<int>(
+                valueListenable: controller.currentPageNotifier,
+                builder: (context, value, _) => Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        if(value < widget.questions.length)
+                        Expanded(
+                            child: ButtonsChallengeWidget.white(
+                          label: "Pular",
+                          onTap: nextPage,
+                        )),
+                        if(value == widget.questions.length)
+                        SizedBox(
+                          width: 7,
+                        ),
+                        if(value == widget.questions.length)
+                        Expanded(
+                            child: ButtonsChallengeWidget.green(
+                          label: "Finalizar",
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                        )),
+                      ],
+                    ))),
       ),
     );
   }
