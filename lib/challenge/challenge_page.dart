@@ -86,6 +86,7 @@ class _ChalengePageState extends State<ChallengePage> {
                 builder: (context, value, _) => Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
+                        // se a pagina atual for menor que a quantidade de questions o botao pular nao aparece.
                         if(value < widget.questions.length)
                         Expanded(
                             child: ButtonsChallengeWidget.white(
