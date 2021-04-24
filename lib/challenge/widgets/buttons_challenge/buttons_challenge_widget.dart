@@ -39,6 +39,22 @@ class ButtonsChallengeWidget extends StatelessWidget {
         this.overlayColor = AppColors.levelButtonTextFacil,
         this.onTap = onTap;
 
+  ButtonsChallengeWidget.purple({required String label, required VoidCallback onTap})
+      : this.backgroundColor = AppColors.purple,
+        this.fontColor = AppColors.white,
+        this.borderColor = AppColors.purple,
+        this.label = label,
+        this.overlayColor = AppColors.levelButtonTextFacil,
+        this.onTap = onTap;
+  
+  ButtonsChallengeWidget.transparent({required String label, required VoidCallback onTap})
+      : this.backgroundColor = Colors.transparent,
+        this.fontColor = AppColors.grey,
+        this.borderColor = Colors.transparent,
+        this.label = label,
+        this.overlayColor = AppColors.levelButtonTextFacil,
+        this.onTap = onTap;
+
   @override
   Widget build(BuildContext context) {
     return Padding(

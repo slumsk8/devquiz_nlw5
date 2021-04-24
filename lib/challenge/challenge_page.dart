@@ -1,4 +1,5 @@
 import 'package:DevQuiz/challenge/challenge_controller.dart';
+import 'package:DevQuiz/result/result_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:DevQuiz/challenge/widgets/buttons_challenge/buttons_challenge_widget.dart';
@@ -87,24 +88,27 @@ class _ChalengePageState extends State<ChallengePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         // se a pagina atual for menor que a quantidade de questions o botao pular nao aparece.
-                        if(value < widget.questions.length)
-                        Expanded(
-                            child: ButtonsChallengeWidget.white(
-                          label: "Pular",
-                          onTap: nextPage,
-                        )),
-                        if(value == widget.questions.length)
-                        SizedBox(
-                          width: 7,
-                        ),
-                        if(value == widget.questions.length)
-                        Expanded(
-                            child: ButtonsChallengeWidget.green(
-                          label: "Finalizar",
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                        )),
+                        if (value < widget.questions.length)
+                          Expanded(
+                              child: ButtonsChallengeWidget.white(
+                            label: "Pular",
+                            onTap: nextPage,
+                          )),
+                        if (value == widget.questions.length)
+                          SizedBox(
+                            width: 7,
+                          ),
+                        if (value == widget.questions.length)
+                          Expanded(
+                              child: ButtonsChallengeWidget.green(
+                            label: "Finalizar",
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (contex) => ResultPage()));
+                            },
+                          )),
                       ],
                     ))),
       ),
