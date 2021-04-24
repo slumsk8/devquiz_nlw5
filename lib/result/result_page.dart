@@ -1,10 +1,20 @@
+import 'package:flutter/material.dart';
+
 import 'package:DevQuiz/challenge/widgets/buttons_challenge/buttons_challenge_widget.dart';
 import 'package:DevQuiz/core/app_images.dart';
 import 'package:DevQuiz/core/app_text_styles.dart';
 import 'package:DevQuiz/home/home_page.dart';
-import 'package:flutter/material.dart';
 
 class ResultPage extends StatelessWidget {
+  final String title;
+  final int length;
+  final int resultRight;
+  const ResultPage({
+    Key? key,
+    required this.title,
+    required this.length,
+    required this.resultRight,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,10 +39,10 @@ class ResultPage extends StatelessWidget {
                       style: AppTextStyles.body,
                       children: [
                         TextSpan(
-                            text: "\nGerenciamento de Estado ",
+                            text: "\n$title",
                             style: AppTextStyles.bodyBold),
                         TextSpan(
-                            text: "\ncom 6 de 10 acertos!",
+                            text: "\ncom $resultRight de $length acertos!",
                             style: AppTextStyles.body),
                       ]),
                   textAlign: TextAlign.center,

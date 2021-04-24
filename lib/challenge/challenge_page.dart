@@ -9,9 +9,11 @@ import 'package:DevQuiz/shared/widgets/models/question_model.dart';
 
 class ChallengePage extends StatefulWidget {
   final List<QuestionModel> questions;
+  final String title;
   const ChallengePage({
     Key? key,
     required this.questions,
+    required this.title,
   }) : super(key: key);
   @override
   _ChalengePageState createState() => _ChalengePageState();
@@ -35,6 +37,13 @@ class _ChalengePageState extends State<ChallengePage> {
       duration: Duration(milliseconds: 100),
       curve: Curves.easeInToLinear,
     );
+  }
+
+  void onSelected(bool value)  {
+    if(value){
+      controller.contRigth++;
+    }
+    nextPage();
   }
 
   @override
@@ -72,9 +81,7 @@ class _ChalengePageState extends State<ChallengePage> {
         children: widget.questions
             .map((e) => QuizWidget(
                   question: e,
-                  onChange: () {
-                    nextPage();
-                  },
+                  onSelected: onSelected,
                 ))
             .toList(),
       ),
@@ -106,7 +113,11 @@ class _ChalengePageState extends State<ChallengePage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (contex) => ResultPage()));
+                                      builder: (contex) => ResultPage(
+                                        resultRight: controller.contRigth,
+                                        title: widget.title,
+                                        length: widget.questions.length,
+                                      )));
                             },
                           )),
                       ],
