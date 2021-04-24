@@ -4,6 +4,7 @@ import 'package:DevQuiz/challenge/widgets/buttons_challenge/buttons_challenge_wi
 import 'package:DevQuiz/core/app_images.dart';
 import 'package:DevQuiz/core/app_text_styles.dart';
 import 'package:DevQuiz/home/home_page.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ResultPage extends StatelessWidget {
   final String title;
@@ -39,8 +40,7 @@ class ResultPage extends StatelessWidget {
                       style: AppTextStyles.body,
                       children: [
                         TextSpan(
-                            text: "\n$title",
-                            style: AppTextStyles.bodyBold),
+                            text: "\n$title", style: AppTextStyles.bodyBold),
                         TextSpan(
                             text: "\ncom $resultRight de $length acertos!",
                             style: AppTextStyles.body),
@@ -57,7 +57,11 @@ class ResultPage extends StatelessWidget {
                         child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 68),
                       child: ButtonsChallengeWidget.purple(
-                          label: "Compartilhar", onTap: () {}),
+                          label: "Compartilhar",
+                          onTap: () {
+                            Share.share(
+                                "DevQuiz NLW 5 - Flutter: Resultado do Quiz: $title\n Obtive: ${(resultRight / length)*100}% de aproveitamento");
+                          }),
                     )),
                   ],
                 ),

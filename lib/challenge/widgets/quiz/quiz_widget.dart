@@ -58,3 +58,4 @@ class _QuizWidgetState extends State<QuizWidget> {
     );
   }
 }
+// TODO: Mudar imagem quando as respostas certas não ultrapassarem 50% das questões
